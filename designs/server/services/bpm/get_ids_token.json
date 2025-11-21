@@ -1,0 +1,146 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_4Z4HnyE7J4YEdtKx",
+        "type": "tab",
+        "createdDate": "2025-11-19T14:05:06.730Z",
+        "label": "get_ids_token",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "get_ids_token",
+        "relativeParentPath": "bpm"
+    },
+    {
+        "id": "sd_Ht5Jw4o1sKE93JOT",
+        "type": "Start",
+        "z": "SSD_SERVICE_ID_sd_4Z4HnyE7J4YEdtKx",
+        "viewType": "client-server",
+        "nodeType": "start",
+        "name": "get_token",
+        "outputs": 1,
+        "inputVariables": [],
+        "localVariables": [
+            {
+                "key": "result",
+                "defaultValue": {
+                    "type": "any",
+                    "value": ""
+                },
+                "output": true
+            }
+        ],
+        "accept_bh": false,
+        "functionName": "getToken",
+        "category": "General",
+        "x": 37,
+        "y": 214.703125,
+        "wires": [
+            [
+                "sd_Gc3wB56TiwyCBKgX"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_ids_token"
+    },
+    {
+        "id": "sd_uFNcEqrC252vRBb5",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_4Z4HnyE7J4YEdtKx",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "method": "post",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.reqUrl",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "reqUrl"
+        },
+        "ret": "json",
+        "retMappingObj": {},
+        "reqBody": "bh.local.payload",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "payload"
+        },
+        "resultMapping": "bh.local.result",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "result"
+        },
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "headersObj": [
+            {
+                "key": "Content-Type",
+                "defaultValue": "application/x-www-form-urlencoded"
+            }
+        ],
+        "headerMappingObj": {},
+        "params": {},
+        "paramsObj": [],
+        "paramMappingObj": {},
+        "useAuthTypeMappingObj": {},
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "sd_uFNcEqrC252vRBb5",
+        "category": "HTTP",
+        "x": 268,
+        "y": 214.734375,
+        "wires": [
+            []
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_ids_token",
+        "generated": true
+    },
+    {
+        "id": "sd_Gc3wB56TiwyCBKgX",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_4Z4HnyE7J4YEdtKx",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "var idsUrl = process.env.IDS_URL;\nvar clientId = process.env.IDS_CLIENT_ID;\nvar clientSecret = process.env.IDS_CLIENT_SECRET\n\nvar urlencoded =\n  \"client_secret=\" + encodeURIComponent(clientSecret) +\n  \"&client_id=\" + encodeURIComponent(clientId) +\n  \"&grant_type=client_credentials\";\n\nbh.local.reqUrl = idsUrl;\nbh.local.payload = urlencoded;\n\nconsole.log(bh.local)",
+        "functionName": "sd_Gc3wB56TiwyCBKgX",
+        "category": "Function",
+        "x": 141,
+        "y": 213.78125,
+        "wires": [
+            [
+                "sd_uFNcEqrC252vRBb5"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_ids_token",
+        "generated": true
+    }
+]

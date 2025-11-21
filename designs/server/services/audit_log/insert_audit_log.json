@@ -1,0 +1,185 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_yZ2V2ooysNwcV6ay",
+        "type": "tab",
+        "createdDate": "2025-11-14T21:29:47.998Z",
+        "label": "insert_audit_log",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "insert_audit_log",
+        "relativeParentPath": "audit_log"
+    },
+    {
+        "id": "sd_spQkBwwaa9FlehOf",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_yZ2V2ooysNwcV6ay",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "create audit log",
+        "path": "/audit-logs",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "post",
+        "sequenceId": "IDSAuthroizedAPIs",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": true,
+        "erd": "_DM_0y7tmq6ka",
+        "erdName": "travel_claim",
+        "entity": "claims",
+        "entityId": "_EN_5suaq06gxv",
+        "ref": "#/definitions/travel_claim ~ claims",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 301,
+        "y": 173.8125,
+        "wires": [
+            [
+                "sd_QASkq0dEw3jGMLPD"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "insert_audit_log",
+        "functionName": "sd_spQkBwwaa9FlehOf"
+    },
+    {
+        "id": "sd_XtIMoinPkTdJZiLM",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_yZ2V2ooysNwcV6ay",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "result",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.result",
+            "send": "bh.local.result"
+        },
+        "dataModelIsArray": false,
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "_DM_0y7tmq6ka",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_XtIMoinPkTdJZiLM",
+        "category": "HTTP",
+        "x": 939,
+        "y": 191.8125,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "insert_audit_log",
+        "generated": true
+    },
+    {
+        "id": "sd_QASkq0dEw3jGMLPD",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_yZ2V2ooysNwcV6ay",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "bh.local.data = {\n    \"claim_id\": bh.input.body.claim_id,\n    \"action\": bh.input.body.action,\n    \"actor_user_id\": bh.input.body.actor_user_id,\n    notes: bh.input.body.notes\n\n}",
+        "functionName": "sd_QASkq0dEw3jGMLPD",
+        "category": "Function",
+        "x": 472,
+        "y": 160.75,
+        "wires": [
+            [
+                "sd_r6VQ3tUzxnxXLEfO"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "insert_audit_log",
+        "generated": true
+    },
+    {
+        "id": "sd_r6VQ3tUzxnxXLEfO",
+        "type": "insert",
+        "z": "SSD_SERVICE_ID_sd_yZ2V2ooysNwcV6ay",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "erd": "_DM_0y7tmq6ka",
+        "entityId": "_EN_d1cvqmibjd",
+        "_UI_entityName": "audit_log",
+        "dbConfigId": "sd_UdsK2Znbczmq0UCo",
+        "insertObject": "bh.local.data",
+        "resultMapping": "bh.local.result",
+        "functionName": "sd_r6VQ3tUzxnxXLEfO",
+        "category": "Data Model",
+        "x": 717.828125,
+        "y": 170.6875,
+        "wires": [
+            [
+                "sd_XtIMoinPkTdJZiLM"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "insertObject": {
+                "type": "bh",
+                "value": "local.data",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh",
+                "value": "local.result",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "insert_audit_log",
+        "generated": true
+    }
+]

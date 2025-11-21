@@ -1,0 +1,239 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_pZGPQsHYYgYGVYy8",
+        "type": "tab",
+        "createdDate": "2025-11-18T22:07:10.800Z",
+        "label": "evaluate_workflow",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "evaluate_workflow",
+        "relativeParentPath": "bpm"
+    },
+    {
+        "id": "sd_HHikJVpwvW97577R",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_pZGPQsHYYgYGVYy8",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "evaluate-workflow",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "post",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 270,
+        "y": 110.00001525878906,
+        "wires": [
+            [
+                "sd_DzL5ggAC7sdT62XS"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "evaluate_workflow",
+        "functionName": "sd_HHikJVpwvW97577R"
+    },
+    {
+        "id": "sd_SKzv7z1oPyVLZX6g",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_pZGPQsHYYgYGVYy8",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "workflowResult",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.workflowResult",
+            "send": "bh.local.workflowResult"
+        },
+        "dataModelIsArray": false,
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_SKzv7z1oPyVLZX6g",
+        "category": "HTTP",
+        "x": 822.0250244140625,
+        "y": 98,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "evaluate_workflow",
+        "generated": true
+    },
+    {
+        "id": "sd_DzL5ggAC7sdT62XS",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_pZGPQsHYYgYGVYy8",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('Preping Reels payload');\nconsole.log(process.env)\n\nbh.local.headers = {\n  \"Content-Type\": \"application/json\",\n  \"Accept\": \"application/json\",\n  \"token\": process.env.REELS_TOKEN\n}\n\nbh.local.payload = {\n  \"workflowId\": process.env.WORKFLOW_ID,\n  \"version\": process.env.WORKFLOW_VERSION,\n  \"inputObj\": bh.input.body,\n};\n\n\nbh.local.url = process.env.REELS_URL;\n\nconsole.log(bh.local)",
+        "functionName": "sd_DzL5ggAC7sdT62XS",
+        "category": "Function",
+        "x": 481,
+        "y": 101.98749542236328,
+        "wires": [
+            [
+                "sd_RqCO9zK7JWeiwTgO"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "evaluate_workflow",
+        "generated": true
+    },
+    {
+        "id": "sd_RqCO9zK7JWeiwTgO",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_pZGPQsHYYgYGVYy8",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "method": "post",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.url",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "url"
+        },
+        "ret": "json",
+        "retMappingObj": {},
+        "reqBody": "bh.local.payload",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "payload"
+        },
+        "resultMapping": "bh.local.result",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "result"
+        },
+        "headerMapping": "bh.local.headers",
+        "headerMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "headers"
+        },
+        "params": {},
+        "paramsObj": [],
+        "paramMappingObj": {},
+        "useAuthTypeMappingObj": {},
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "sd_RqCO9zK7JWeiwTgO",
+        "category": "HTTP",
+        "x": 573,
+        "y": 100.78125,
+        "wires": [
+            [
+                "sd_0ZdBRwav60V0WIc6"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "evaluate_workflow",
+        "generated": true
+    },
+    {
+        "id": "sd_0ZdBRwav60V0WIc6",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_pZGPQsHYYgYGVYy8",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "bh.local.workflowResult = bh.local.result.payload.result;",
+        "functionName": "sd_0ZdBRwav60V0WIc6",
+        "category": "Function",
+        "x": 709,
+        "y": 99.75,
+        "wires": [
+            [
+                "sd_SKzv7z1oPyVLZX6g"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "evaluate_workflow",
+        "generated": true
+    }
+]

@@ -1,0 +1,217 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_7RiRE2vN0rxiv5XN",
+        "type": "tab",
+        "createdDate": "2025-11-21T10:10:46.194Z",
+        "label": "masterdata",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "masterdata",
+        "relativeParentPath": "claims"
+    },
+    {
+        "id": "sd_J0VRgbXfM4Dgk7l8",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_7RiRE2vN0rxiv5XN",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "get claim types",
+        "path": "claim-types",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "get",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 140,
+        "y": 176.796875,
+        "wires": [
+            [
+                "sd_Bsf1KU7GxMWuocKw"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "masterdata",
+        "functionName": "sd_J0VRgbXfM4Dgk7l8"
+    },
+    {
+        "id": "sd_qcrPbMVTuQ7fc7EX",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_7RiRE2vN0rxiv5XN",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "result.payload.records",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.result.payload.records",
+            "send": "bh.local.result.payload.records"
+        },
+        "dataModelIsArray": false,
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_qcrPbMVTuQ7fc7EX",
+        "category": "HTTP",
+        "x": 594.890625,
+        "y": 188.796875,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "masterdata",
+        "generated": true
+    },
+    {
+        "id": "sd_Bsf1KU7GxMWuocKw",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_7RiRE2vN0rxiv5XN",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "// --- CONFIG ---\nconst url = process.env.REELS_MD_URL;\nconst token = process.env.REELS_TOKEN;\n\n// --- BODY (POSTMAN RAW JSON) ---\nconst body = {\n  pageNumber: 0,\n  pageSize: 100,\n  multiplicity: \"multiple\",\n  filter: {}\n};\n\n// --- HEADERS ---\nconst headers = {\n  \"Content-Type\": \"application/json\",\n  \"Accept\": \"application/json\",\n  \"token\": token\n};\n\n// --- SET bh.local VARIABLES ---\nbh.local.url = url;\nbh.local.body = body;\nbh.local.headers = headers;\n\nconsole.log(\"### URL:\", url);\nconsole.log(\"### HEADERS:\", headers);\nconsole.log(\"### BODY:\", body);\n",
+        "functionName": "sd_Bsf1KU7GxMWuocKw",
+        "category": "Function",
+        "x": 288,
+        "y": 180.78125,
+        "wires": [
+            [
+                "sd_FRNIDPNu2v8H2GZT"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "masterdata",
+        "generated": true
+    },
+    {
+        "id": "sd_FRNIDPNu2v8H2GZT",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_7RiRE2vN0rxiv5XN",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "method": "post",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.url",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "url"
+        },
+        "ret": "json",
+        "retMappingObj": {},
+        "reqBody": "bh.local.body",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "body"
+        },
+        "resultMapping": "bh.local.result",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "result"
+        },
+        "headerMapping": "bh.local.headers",
+        "headerMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "headers"
+        },
+        "params": {},
+        "paramsObj": [],
+        "paramMappingObj": {},
+        "useAuthTypeMappingObj": {},
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "sd_FRNIDPNu2v8H2GZT",
+        "category": "HTTP",
+        "x": 411,
+        "y": 178.78125,
+        "wires": [
+            [
+                "sd_qcrPbMVTuQ7fc7EX"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "masterdata",
+        "generated": true
+    }
+]

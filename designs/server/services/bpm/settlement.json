@@ -1,0 +1,516 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "type": "tab",
+        "createdDate": "2025-11-18T22:07:18.491Z",
+        "label": "settlement",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "settlement",
+        "relativeParentPath": "bpm"
+    },
+    {
+        "id": "sd_57oV70Xfp9hhxdzY",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "settlement",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "post",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 149,
+        "y": 57.80000305175781,
+        "wires": [
+            [
+                "sd_FBRTE5iVjlk9WSy1"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "settlement",
+        "functionName": "sd_57oV70Xfp9hhxdzY"
+    },
+    {
+        "id": "sd_3M3SnQMTSeKuFwgQ",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.input",
+            "value": "body",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.input.body",
+            "send": "bh.input.body"
+        },
+        "dataModelIsArray": false,
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_3M3SnQMTSeKuFwgQ",
+        "category": "HTTP",
+        "x": 1121.0250244140625,
+        "y": 145.79999542236328,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_12mQwrxjYyvmRjMT",
+        "type": "update",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "erd": "_DM_0y7tmq6ka",
+        "entityId": "_EN_5suaq06gxv",
+        "_UI_entityName": "claims",
+        "dbConfigId": "sd_UdsK2Znbczmq0UCo",
+        "operationType": "update",
+        "filterBy": "bh.local.filter",
+        "updateObject": "bh.local.dto",
+        "resultMapping": "bh.local.result",
+        "functionName": "sd_12mQwrxjYyvmRjMT",
+        "category": "Data Model",
+        "x": 477,
+        "y": 176.671875,
+        "wires": [
+            [
+                "sd_Nnu671RRsRE0hOL3"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "filterBy": {
+                "type": "bh.local",
+                "value": "filter",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            },
+            "updateObject": {
+                "type": "bh.local",
+                "value": "dto",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "result",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_FBRTE5iVjlk9WSy1",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "bh.local.filter = {\n    id: bh.input.body.claimId,\n}\n\nif (![\"approved\", \"rejected\"].some(val => val == bh.input.body.status)) {\n    throw new Error('Bad request');\n}\n\nbh.local.dto = {\n    status: bh.input.body.status,\n}",
+        "functionName": "sd_FBRTE5iVjlk9WSy1",
+        "category": "Function",
+        "x": 330,
+        "y": 81.75,
+        "wires": [
+            [
+                "sd_12mQwrxjYyvmRjMT"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_gk8QiGYdONRLC7hJ",
+        "type": "Switch",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "property": "body.status",
+        "propertyType": "bh.input",
+        "propertyGv": "bh.input.body.status",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "approved",
+                "vt": "str",
+                "gv": "\"approved\""
+            },
+            {
+                "t": "eq",
+                "v": "rejected",
+                "vt": "str",
+                "gv": "\"rejected\""
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "functionName": "sd_gk8QiGYdONRLC7hJ",
+        "category": "Function",
+        "x": 635,
+        "y": 497.765625,
+        "wires": [
+            [
+                "sd_zsrSVEGdDT018Quf"
+            ],
+            [
+                "sd_iPTXzJnzVH1sfx3R"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_zsrSVEGdDT018Quf",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('APPROVED')\n\nbh.local.subject = 'Approved submission ' + bh.input.body.claimId;\nbh.local.body = 'Your submission was approved'",
+        "functionName": "sd_zsrSVEGdDT018Quf",
+        "category": "Function",
+        "x": 833,
+        "y": 315.75,
+        "wires": [
+            [
+                "sd_dIMvJW4sSL40XZsH"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_iPTXzJnzVH1sfx3R",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log('REJECTED')\n\nbh.local.subject = 'Rejected ' + bh.input.body.claimId;\nbh.local.body = 'Your submission was rejected'",
+        "functionName": "sd_iPTXzJnzVH1sfx3R",
+        "category": "Function",
+        "x": 856,
+        "y": 457.8125,
+        "wires": [
+            [
+                "sd_dIMvJW4sSL40XZsH"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_kr7D2syzZW2jueNA",
+        "type": "Catch",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "common",
+        "nodeType": "start",
+        "name": "",
+        "selectedNodes": "",
+        "selectCatchType": "allnodes",
+        "masternodeList": "",
+        "ignoreList": [
+            "sd_p6U7RdkFwcbFhYVT"
+        ],
+        "functionName": "sd_kr7D2syzZW2jueNA",
+        "category": "General",
+        "x": 494.828125,
+        "y": 37.703125,
+        "wires": [
+            [
+                "sd_p6U7RdkFwcbFhYVT"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "settlement"
+    },
+    {
+        "id": "sd_p6U7RdkFwcbFhYVT",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "literal",
+            "value": "{error: \"Something went wrong\"}",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "{error: \"Something went wrong\"}",
+            "send": "{error: \"Something went wrong\"}"
+        },
+        "dataModelIsArray": false,
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_p6U7RdkFwcbFhYVT",
+        "category": "HTTP",
+        "x": 595,
+        "y": 30,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_Nnu671RRsRE0hOL3",
+        "type": "find",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "erd": "_DM_0y7tmq6ka",
+        "entityId": "_EN_5suaq06gxv",
+        "_UI_entityName": "claims",
+        "dbConfigId": "sd_UdsK2Znbczmq0UCo",
+        "primayKey": "id",
+        "operationType": "findByID",
+        "_ID": "bh.input.body.claimId",
+        "filterBy": "bh",
+        "offSet": "bh",
+        "orderBy": "bh",
+        "pageSize": "bh",
+        "resultMapping": "bh.local.claim",
+        "functionName": "sd_Nnu671RRsRE0hOL3",
+        "category": "Data Model",
+        "x": 565,
+        "y": 289.828125,
+        "wires": [
+            [
+                "sd_AMwpXTXcrM9MWN4B"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "_ID": {
+                "type": "bh.input",
+                "value": "body.claimId",
+                "constant": false
+            },
+            "filterBy": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "offSet": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "orderBy": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "pageSize": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "claim",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {
+            "filterBy": true,
+            "offSet": true,
+            "orderBy": true,
+            "pageSize": true
+        },
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_AMwpXTXcrM9MWN4B",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "\n\nif (bh.local.claim.length == 0) {\n    throw new Error('Not found');\n}\n\nbh.local.email = bh.local.claim[0].contact_email\n\n\nconsole.log(bh.local)",
+        "functionName": "sd_AMwpXTXcrM9MWN4B",
+        "category": "Function",
+        "x": 467,
+        "y": 505.75,
+        "wires": [
+            [
+                "sd_gk8QiGYdONRLC7hJ"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    },
+    {
+        "id": "sd_dIMvJW4sSL40XZsH",
+        "type": "CallService",
+        "z": "SSD_SERVICE_ID_sd_SXyW5xc67wklQGCN",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "outputs": 1,
+        "isValidNode": true,
+        "noerr": 0,
+        "service": {
+            "id": "SSD_SERVICE_ID_sd_FAjzC2PTVhm886jt",
+            "type": "tab",
+            "createdDate": "2025-11-20T09:39:45.435Z",
+            "label": "email",
+            "disabled": false,
+            "info": "",
+            "functionSeq": 0
+        },
+        "flow": {
+            "flowId": "sd_LQCyYaA45esjbNKT",
+            "flowName": "sd_LQCyYaA45esjbNKT"
+        },
+        "inputVariables": [
+            {
+                "key": "subject",
+                "map": true,
+                "valueType": "bh.local",
+                "value": "subject"
+            },
+            {
+                "key": "body",
+                "map": true,
+                "valueType": "bh.local",
+                "value": "body"
+            },
+            {
+                "key": "email",
+                "map": true,
+                "valueType": "bh.local",
+                "value": "email"
+            }
+        ],
+        "bhVariables": [],
+        "outputMapping": [],
+        "callService": "./email",
+        "startName": "sd_LQCyYaA45esjbNKT",
+        "inputParams": [
+            "bh.local.subject",
+            "bh.local.body",
+            "bh.local.email"
+        ],
+        "accept_bh": false,
+        "functionName": "sd_dIMvJW4sSL40XZsH",
+        "category": "General",
+        "x": 968,
+        "y": 294.8125,
+        "wires": [
+            [
+                "sd_3M3SnQMTSeKuFwgQ"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "settlement",
+        "generated": true
+    }
+]

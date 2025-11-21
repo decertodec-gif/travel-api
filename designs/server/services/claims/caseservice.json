@@ -1,0 +1,158 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_9CpvdAgxmCoMALSy",
+        "type": "tab",
+        "createdDate": "2025-11-21T09:40:02.031Z",
+        "label": "caseservice",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "caseservice",
+        "relativeParentPath": "claims"
+    },
+    {
+        "id": "sd_c9NXupDhAhDN9vEt",
+        "type": "Start",
+        "z": "SSD_SERVICE_ID_sd_9CpvdAgxmCoMALSy",
+        "viewType": "client-server",
+        "nodeType": "start",
+        "name": "create_cast_instance",
+        "outputs": 1,
+        "inputVariables": [
+            {
+                "key": "claim",
+                "defaultValue": {
+                    "type": "any",
+                    "value": ""
+                },
+                "output": false
+            },
+            {
+                "key": "token",
+                "defaultValue": {
+                    "type": "str",
+                    "value": ""
+                },
+                "output": false
+            }
+        ],
+        "localVariables": [
+            {
+                "key": "result",
+                "defaultValue": {
+                    "type": "any",
+                    "value": ""
+                },
+                "output": true
+            }
+        ],
+        "accept_bh": false,
+        "functionName": "createCastInstance",
+        "category": "General",
+        "x": 133,
+        "y": 199.796875,
+        "wires": [
+            [
+                "sd_Ruwl5lMWMQOs0YDV"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "caseservice"
+    },
+    {
+        "id": "sd_ut4WGCHNrMws3Hyd",
+        "type": "ServerHttpRequest",
+        "z": "SSD_SERVICE_ID_sd_9CpvdAgxmCoMALSy",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "method": "post",
+        "methodMappingObj": {},
+        "urlMapping": "bh.local.url",
+        "urlMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "url"
+        },
+        "ret": "json",
+        "retMappingObj": {},
+        "reqBody": "bh.local.body",
+        "reqBodyObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "body"
+        },
+        "resultMapping": "bh.local.result",
+        "resultMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "result"
+        },
+        "headerMapping": "bh.local.headers",
+        "headerMappingObj": {
+            "mapVarType": "bh.local",
+            "mapVarValue": "headers"
+        },
+        "params": {},
+        "paramsObj": [],
+        "paramMappingObj": {},
+        "useAuthTypeMappingObj": {},
+        "useAuthUsername": "",
+        "useAuthUsernameMappingObj": "",
+        "useAuthPassword": "",
+        "useAuthPasswordMappingObj": "",
+        "useAuthToken": "",
+        "useAuthTokenMappingObj": "",
+        "useQueryString": false,
+        "tls": "",
+        "followRedirect": true,
+        "paytoqs": false,
+        "useAuthentication": false,
+        "rejectUnauthorized": false,
+        "proxy": "",
+        "useProxy": false,
+        "usetls": false,
+        "cookiesMapObj": {},
+        "cookiesList": {},
+        "switchStates": {
+            "cookies": "Map"
+        },
+        "editableListData": {},
+        "timeout": {
+            "type": "num",
+            "value": ""
+        },
+        "functionName": "sd_ut4WGCHNrMws3Hyd",
+        "category": "HTTP",
+        "x": 474,
+        "y": 199.78125,
+        "wires": [
+            []
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "caseservice",
+        "generated": true
+    },
+    {
+        "id": "sd_Ruwl5lMWMQOs0YDV",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_9CpvdAgxmCoMALSy",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "// ---- Input ----\nvar claimData = bh.input.claim;\n\n// ---- URL ----\nbh.local.url = process.env.CASE_CREATION_URL;\n\n// ---- Headers ----\nbh.local.headers = {\n  accept: \"application/json\",\n  Authorization: \"Bearer \" + bh.input.token,   // if you want static token replace bh.input.token\n  \"Content-Type\": \"application/json\"\n};\n\n// ---- Body ----\nbh.local.body = {\n  caseType: \"travel-claim-case\",\n  caseData: {\n    ssdUrl: process.env.SSD_URL, // TODO: remvoe that once configured in BPM\n    claimData: claimData\n  },\n  wfData: {}\n};\n\n// ---- Debug ----\nconsole.log(\"### CLAIM DATA:\", claimData);\nconsole.log(\"### BODY:\", JSON.stringify(bh.local.body, null, 2));\n\n// ---- Result placeholder ----\nbh.local.result = {};\n",
+        "functionName": "sd_Ruwl5lMWMQOs0YDV",
+        "category": "Function",
+        "x": 282,
+        "y": 197.78125,
+        "wires": [
+            [
+                "sd_ut4WGCHNrMws3Hyd"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "caseservice",
+        "generated": true
+    }
+]

@@ -1,0 +1,217 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_FAjzC2PTVhm886jt",
+        "type": "tab",
+        "createdDate": "2025-11-20T09:39:45.435Z",
+        "label": "email",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "email",
+        "relativeParentPath": "bpm"
+    },
+    {
+        "id": "sd_3jSdDcbetOqbSZ7s",
+        "type": "EmailOut",
+        "z": "SSD_SERVICE_ID_sd_FAjzC2PTVhm886jt",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "emailoutconfig": "sd_5QYN7dSsDXHxyfyS",
+        "from": "\"decertodec@gmail.com\"",
+        "to": "bh.input.email",
+        "cc": "undefined",
+        "bcc": "undefined",
+        "subject": "bh.input.subject",
+        "body": "bh.input.body",
+        "html": "undefined",
+        "attachmentList": {},
+        "switchStates": {
+            "attachment": "Map"
+        },
+        "editableListData": {},
+        "routingoptions": "undefined",
+        "iCal": "undefined",
+        "contentoptions": "undefined",
+        "headeroptions": "undefined",
+        "securityoptions": "undefined",
+        "outputs": 1,
+        "resultMapping": "bh.local.result",
+        "functionName": "sd_3jSdDcbetOqbSZ7s",
+        "category": "Messaging",
+        "x": 653,
+        "y": 311.84375,
+        "wires": [
+            []
+        ],
+        "__ssdTypeInputs__": {
+            "from": {
+                "type": "str",
+                "value": "decertodec@gmail.com",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "to": {
+                "type": "bh.input",
+                "value": "email",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "cc": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "bcc": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "subject": {
+                "type": "bh.input",
+                "value": "subject",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "body": {
+                "type": "bh.input",
+                "value": "body",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "html": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "routingoptions": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "iCal": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "contentoptions": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "headeroptions": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "securityoptions": {
+                "type": "bh",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "result",
+                "nullable": "true",
+                "nullableValue": "undefined",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "email",
+        "generated": true
+    },
+    {
+        "id": "sd_LQCyYaA45esjbNKT",
+        "type": "Start",
+        "z": "SSD_SERVICE_ID_sd_FAjzC2PTVhm886jt",
+        "viewType": "client-server",
+        "nodeType": "start",
+        "name": "",
+        "outputs": 1,
+        "inputVariables": [
+            {
+                "key": "subject",
+                "defaultValue": {
+                    "type": "str",
+                    "value": ""
+                },
+                "output": false
+            },
+            {
+                "key": "body",
+                "defaultValue": {
+                    "type": "str",
+                    "value": ""
+                },
+                "output": false
+            },
+            {
+                "key": "email",
+                "defaultValue": {
+                    "type": "str",
+                    "value": ""
+                },
+                "output": false
+            }
+        ],
+        "localVariables": [],
+        "accept_bh": false,
+        "functionName": "sd_LQCyYaA45esjbNKT",
+        "category": "General",
+        "x": 417,
+        "y": 321.796875,
+        "wires": [
+            [
+                "sd_SJQZcMj1IHSPRr5F"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "email"
+    },
+    {
+        "id": "sd_SJQZcMj1IHSPRr5F",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_FAjzC2PTVhm886jt",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "",
+        "functionName": "sd_SJQZcMj1IHSPRr5F",
+        "category": "Function",
+        "x": 533,
+        "y": 319.78125,
+        "wires": [
+            [
+                "sd_3jSdDcbetOqbSZ7s"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "email",
+        "generated": true
+    }
+]

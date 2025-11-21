@@ -1,0 +1,152 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_FYl7HSClCFfLBsCF",
+        "type": "tab",
+        "createdDate": "2025-11-18T21:56:45.052Z",
+        "label": "validate",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "validate",
+        "relativeParentPath": "bpm"
+    },
+    {
+        "id": "sd_4eppMODqEYfFq9UV",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_FYl7HSClCFfLBsCF",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "",
+        "path": "validate",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "post",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "",
+        "erdName": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "responses": [],
+            "params": [
+                {
+                    "key": "claimData",
+                    "desc": "claim data",
+                    "type": "body",
+                    "required": true,
+                    "rowId": "sd_4YOe9ZSgSRfTFRju",
+                    "valid": true
+                }
+            ],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 72.00000381469727,
+        "y": 145.82501220703125,
+        "wires": [
+            [
+                "sd_qtWvRrO1lxU6lO5v"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "validate",
+        "functionName": "sd_4eppMODqEYfFq9UV"
+    },
+    {
+        "id": "sd_ai6HWj37TUSUEozA",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_FYl7HSClCFfLBsCF",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "result",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.result",
+            "send": "bh.local.result"
+        },
+        "dataModelIsArray": false,
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_ai6HWj37TUSUEozA",
+        "category": "HTTP",
+        "x": 396.0250244140625,
+        "y": 122.82500457763672,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "validate",
+        "generated": true
+    },
+    {
+        "id": "sd_qtWvRrO1lxU6lO5v",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_FYl7HSClCFfLBsCF",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "// --- input ---\nvar body = bh.input && bh.input.body ? bh.input.body : {};\nvar payload = body.claimData || {};\nvar errors = [];\n\nconsole.log(payload);\n\n// default result\nbh.local.result = {\n    valid: true,\n    errors: [],\n    data: payload\n};\n\n// --- validators ---\n\nfunction required(field) {\n    if (!payload[field] || payload[field] === \"\") {\n        errors.push(field + \" is required\");\n    }\n}\n\nfunction isPositiveNumber(field) {\n    if (payload[field] == null || Number(payload[field]) <= 0) {\n        errors.push(field + \" must be a positive number\");\n    }\n}\n\nfunction isValidPhone(field) {\n    var regex = /^[0-9+\\-\\s]{6,20}$/;\n    if (!regex.test(payload[field])) {\n        errors.push(field + \" is invalid\");\n    }\n}\n\nfunction isValidIban(field) {\n    var regex = /^PL[0-9]{26}$/;\n    if (!regex.test(payload[field])) {\n        errors.push(field + \" is not a valid Polish IBAN\");\n    }\n}\n\nfunction validateCurrency(field) {\n    var allowed = [\"EUR\", \"USD\", \"GBP\", \"PLN\"];\n    if (allowed.indexOf(payload[field]) === -1) {\n        errors.push(field + \" must be one of \" + allowed.join(\", \"));\n    }\n}\n\nfunction validateDateRange() {\n    if (payload.trip_start_date && payload.trip_end_date) {\n        if (new Date(payload.trip_start_date) >= new Date(payload.trip_end_date)) {\n            errors.push(\"trip_start_date must be before trip_end_date\");\n        }\n    }\n}\n\nfunction validateMinLength(field, min) {\n    if (!payload[field] || payload[field].length < min) {\n        errors.push(field + \" must have at least \" + min + \" characters\");\n    }\n}\n\n// --- rules ---\n\nrequired(\"policy_number\");\nrequired(\"claimant_name\");\nrequired(\"contact_phone\");\nrequired(\"trip_start_date\");\nrequired(\"trip_end_date\");\nrequired(\"claim_type\");\nrequired(\"currency\");\nrequired(\"incident_description\");\nrequired(\"bank_account_number\");\n\nisValidPhone(\"contact_phone\");\nisPositiveNumber(\"claim_amount\");\nvalidateCurrency(\"currency\");\nisValidIban(\"bank_account_number\");\nvalidateDateRange();\nvalidateMinLength(\"incident_description\", 10);\n\n// --- final result ---\n\nif (errors.length > 0) {\n    bh.local.result.valid = false;\n    bh.local.result.errors = errors;\n} else {\n    bh.local.result.valid = true;\n    bh.local.result.errors = [];\n    bh.local.result.data = payload;\n}\n\nconsole.log(bh.local.result)",
+        "functionName": "sd_qtWvRrO1lxU6lO5v",
+        "category": "Function",
+        "x": 205,
+        "y": 132.81249237060547,
+        "wires": [
+            [
+                "sd_ai6HWj37TUSUEozA"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "validate",
+        "generated": true
+    }
+]

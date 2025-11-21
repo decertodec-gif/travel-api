@@ -1,0 +1,210 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_2TeV4OrYdX4MluHL",
+        "type": "tab",
+        "createdDate": "2025-11-14T21:21:24.012Z",
+        "label": "get_claim",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "get_claim",
+        "relativeParentPath": "claims"
+    },
+    {
+        "id": "sd_ffhQ3Sxq4DXBYSqz",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_2TeV4OrYdX4MluHL",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "get_claim",
+        "path": "/travel-claims/:id",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "get",
+        "sequenceId": "IDSAuthroizedAPIs",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "useDataModel": false,
+        "dataModelIsArray": false,
+        "erd": "_DM_0y7tmq6ka",
+        "erdName": "travel_claim",
+        "entity": "claims",
+        "entityId": "_EN_5suaq06gxv",
+        "ref": "#/definitions/travel_claim ~ claims",
+        "editableListData": {
+            "responses": [],
+            "params": [],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "validateRequestUsingSwaggerDocs": false,
+        "category": "HTTP",
+        "x": 430,
+        "y": 226.8125,
+        "wires": [
+            [
+                "sd_ctRzSLyM3qnaTX3m"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "get_claim",
+        "functionName": "sd_ffhQ3Sxq4DXBYSqz"
+    },
+    {
+        "id": "sd_hC5BDGgBKL8AgEZb",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_2TeV4OrYdX4MluHL",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "result",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "swaggerResponse": {},
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.result",
+            "send": "bh.local.result"
+        },
+        "dataModelIsArray": false,
+        "inputs": 1,
+        "outputs": 0,
+        "erd": "_DM_0y7tmq6ka",
+        "entity": "",
+        "entityId": "",
+        "ref": "",
+        "editableListData": {
+            "headers": [],
+            "produces": [],
+            "responses": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_hC5BDGgBKL8AgEZb",
+        "category": "HTTP",
+        "x": 888,
+        "y": 209.8125,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_claim",
+        "generated": true
+    },
+    {
+        "id": "sd_Oq2CcLUBrSLW6tHE",
+        "type": "find",
+        "z": "SSD_SERVICE_ID_sd_2TeV4OrYdX4MluHL",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "erd": "_DM_0y7tmq6ka",
+        "entityId": "_EN_5suaq06gxv",
+        "_UI_entityName": "claims",
+        "dbConfigId": "sd_UdsK2Znbczmq0UCo",
+        "primayKey": "id",
+        "operationType": "findByID",
+        "_ID": "bh.input.params.id",
+        "filterBy": "bh.input.params.id",
+        "offSet": "bh",
+        "orderBy": "bh",
+        "pageSize": "bh",
+        "resultMapping": "bh.local.result",
+        "functionName": "sd_Oq2CcLUBrSLW6tHE",
+        "category": "Data Model",
+        "x": 610,
+        "y": 222.65625,
+        "wires": [
+            [
+                "sd_hC5BDGgBKL8AgEZb"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "_ID": {
+                "type": "bh.input",
+                "value": "params.id",
+                "constant": false
+            },
+            "filterBy": {
+                "type": "bh",
+                "value": "input.params.id",
+                "constant": false
+            },
+            "offSet": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "orderBy": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "pageSize": {
+                "type": "bh",
+                "value": "",
+                "constant": false
+            },
+            "resultMapping": {
+                "type": "bh.local",
+                "value": "result",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {
+            "_ID": true
+        },
+        "generateNext": false,
+        "serviceName": "get_claim",
+        "generated": true
+    },
+    {
+        "id": "sd_ctRzSLyM3qnaTX3m",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_2TeV4OrYdX4MluHL",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log(bh)",
+        "functionName": "sd_ctRzSLyM3qnaTX3m",
+        "category": "Function",
+        "x": 508,
+        "y": 216.61249542236328,
+        "wires": [
+            [
+                "sd_Oq2CcLUBrSLW6tHE"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "serviceName": "get_claim",
+        "generated": true
+    }
+]

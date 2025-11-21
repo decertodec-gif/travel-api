@@ -1,0 +1,13 @@
+{
+    "displayName": "travel-claim-api",
+    "appName": "travel-claim-api",
+    "description": "Travel Claim Submission API",
+    "lastModified": "2025-11-14T19:58:05.563Z",
+    "imgSourcePath": "",
+    "version": "1.0.0",
+    "appType": "apiOnly",
+    "templateName": "blank",
+    "createDate": "2025-11-14T19:58:03.148Z",
+    "analyticsId": "d3204878-abdd-10b7-d9ca-e8c84545a813",
+    "createdStudioVersion": "9.3.0"
+}
